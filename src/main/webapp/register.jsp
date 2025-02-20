@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@ page import="java.sql.*" %>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -20,9 +20,10 @@
 .container {
     background: #ffffff;
     width: 90%;
-    max-width: 360px; /* 🔹 최대 너비 축소하여 균형 조정 */
+    max-width: 360px; /* 최대 너비 축소하여 균형 조정 */
     padding: 20px;
     border-radius: 10px;
+    border: 1px solid #ccc;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -35,7 +36,7 @@ h2 {
 .form-group {
     display: flex;
     flex-direction: column;
-    margin-bottom: 20px; /* 🔹 입력 필드 간격 증가 */
+    margin-bottom: 20px; /* 입력 필드 간격 증가 */
 }
 
 label {
@@ -45,7 +46,7 @@ label {
 }
 
 input {
-    width: calc(100% - 20px); /* 🔹 입력 필드 좌우 여백 추가 */
+    width: calc(100% - 20px); /* 입력 필드 좌우 여백 추가 */
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
