@@ -4,15 +4,74 @@
 <%
 Class.forName("com.mysql.cj.jdbc.Driver");
 String URL = "jdbc:mysql://localhost:3306/spring5fs";
-String sql = "select * from user";
-%>
-<%
-	//세션 체크 *
-	String userid = (String)session.getAttribute("U_id");
-	if(userid == null) {
-		response.sendRedirect("login_test.jsp");
-	}
+String USER = "root";
+String PASSWORD = "1234";
 
+// 세션에서 로그인한 사용자 ID 가져오기
+String userid = (String) session.getAttribute("U_id");
+if (userid == null) {
+    response.sendRedirect("login_test.jsp");
+    return;
+}
+
+System.out.println("현재 로그인한 사용자 ID: " + userid); // 디버깅용
+
+// 기본값 설정
+String U_email = "이메일 정보 없음";
+String M_job = "직업 정보 없음";
+String M_skill = "기술 정보 없음";
+String M_hobby = "취미 정보 없음";
+String M_number = "전화번호 없음";
+String M_github = "#";
+
+Connection conn = null;
+PreparedStatement pstmt = null;
+ResultSet rs = null;
+
+try {
+    conn = DriverManager.getConnection(URL, USER, PASSWORD);
+    
+    // 1️⃣ user 테이블에서 이메일 가져오기
+    String userSql = "SELECT U_email FROM user WHERE U_id = ?";
+    pstmt = conn.prepareStatement(userSql);
+    pstmt.setString(1, userid);
+    rs = pstmt.executeQuery();
+    if (rs.next()) {
+        U_email = rs.getString("U_email");
+    } else {
+        System.out.println("user 테이블에서 ID를 찾을 수 없음: " + userid);
+    }
+    
+    rs.close();
+    pstmt.close();
+
+    // 2️⃣ Mypage 테이블에서 정보 가져오기
+    String mypageSql = "SELECT M_job, M_skill, M_hobby, M_number, M_github FROM Mypage WHERE U_id = ?";
+    pstmt = conn.prepareStatement(mypageSql);
+    pstmt.setString(1, userid);
+    rs = pstmt.executeQuery();
+    
+    if (rs.next()) {
+        M_job = rs.getString("M_job") != null ? rs.getString("M_job") : "직업 정보 없음";
+        M_skill = rs.getString("M_skill") != null ? rs.getString("M_skill") : "기술 정보 없음";
+        M_hobby = rs.getString("M_hobby") != null ? rs.getString("M_hobby") : "취미 정보 없음";
+        M_number = rs.getString("M_number") != null ? rs.getString("M_number") : "전화번호 없음";
+        M_github = rs.getString("M_github") != null ? rs.getString("M_github") : "#";
+    } else {
+        System.out.println("Mypage 테이블에서 ID를 찾을 수 없음: " + userid);
+    }
+
+} catch (Exception e) {
+    e.printStackTrace();
+} finally {
+    try {
+        if (rs != null) rs.close();
+        if (pstmt != null) pstmt.close();
+        if (conn != null) conn.close();
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
 %>
 <!DOCTYPE html>
 <html>
@@ -177,19 +236,21 @@ String sql = "select * from user";
 </div>
 
 <div class="container">
-<img src="img/mainpge.png" alt="프로필 사진">
-<br><br>
-<h2>WHO?</h2>
-    <p>저는 <%= "웹 개발자" %>이며, 현재 JSP와 Java를 공부하고 있습니다.</p>
-    <p>좋아하는 기술: <%= "Java, JSP, Spring, MySQL" %></p>
-    <p>취미: <%= "코딩, 제과, 여행" %></p>
+    <img src="img/mainpge.png" alt="프로필 사진">
+    <h2>마이페이지</h2>
+        <p>저는 <%= M_job %>이며, 현재 JSP와 Java를 공부하고 있습니다.</p>
+        <p>좋아하는 기술: <%= M_skill %></p>
+        <p>취미: <%= M_hobby %></p>
 
-    <div class="contact">
-        <p>📧 이메일: <a href="mailto:test@example.com">test@example.com</a></p>
-        <p>📞 전화번호: <%= "010-1234-5678" %></p>
-        <p>🔗 <a href="https://github.com/vnme1" target="_blank">GitHub</a></p>
-    </div>
+        <div class="contact">
+            <p>📧 이메일: <a href="mailto:<%= U_email %>"><%= U_email %></a></p>
+            <p>📞 전화번호: <%= M_number %></p>
+            <p>🔗 <a href="<%= M_github %>" target="_blank">GitHub</a></p>
+        </div>
+
+        <a href="Mypage.jsp">정보 입력하기</a>
 </div>
+
 
 <div class="container">
 <h2>내가 진행한 프로젝트</h2>

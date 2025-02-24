@@ -82,15 +82,14 @@ String sql = "select * from user";
 <body>
     <div class="login-container">
         <h2>아이디 찾기</h2>
-        <form action="loginProcess_test.jsp" method="post">
+        <form action="findProcess_id.jsp" method="post">
             <div class="form-group">
-                <label for="email">등록한 이메일을 입력해주세요.</label>
-                <input type="text" id="F_email" name="F_email" required>
+                <label for="id">등록한 이메일을 입력해주세요.</label>
+                <input type="text" id="F_id" name="F_id" required>
             </div>
-            <button type="submit">로그인</button>
-            
-            
-            
+            <button type="submit">확인</button>   
+            <a href="find_pw.jsp">비밀번호 찾기</a>
+            <a href="register.jsp">회원가입</a>         
         </form>
     </div>
 </body>

@@ -97,7 +97,7 @@ String sql = "select * from user";
         	</p>
             
             <button type="submit">로그인</button>
-            <a href="find_info.jsp">아이디 / 비밀번호 찾기</a>
+            <a href="find_id.jsp">아이디 / 비밀번호 찾기</a>
             <a href="register.jsp">회원가입을 하시겠습니까?</a>
         </form>
     </div>
