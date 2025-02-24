@@ -81,24 +81,16 @@ String sql = "select * from user";
 </head>
 <body>
     <div class="login-container">
-        <h2>로그인</h2>
+        <h2>아이디 찾기</h2>
         <form action="loginProcess_test.jsp" method="post">
             <div class="form-group">
-                <label for="userid">아이디:</label>
-                <input type="text" id="U_id" name="U_id" required>
+                <label for="email">등록한 이메일을 입력해주세요.</label>
+                <input type="text" id="F_email" name="F_email" required>
             </div>
-            
-            <div class="form-group">
-                <label for="password">비밀번호:</label>
-                <input type="password" id="U_pw" name="U_pw" required>
-            </div>
-            <p>
-            	<input type="checkbox" name="R_id"> 아이디 기억하기
-        	</p>
-            
             <button type="submit">로그인</button>
-            <a href="find_info.jsp">아이디 / 비밀번호 찾기</a>
-            <a href="register.jsp">회원가입을 하시겠습니까?</a>
+            
+            
+            
         </form>
     </div>
 </body>

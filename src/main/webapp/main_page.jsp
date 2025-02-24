@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
+
 <%
 Class.forName("com.mysql.cj.jdbc.Driver");
 String URL = "jdbc:mysql://localhost:3306/spring5fs";
@@ -73,23 +74,26 @@ String sql = "select * from user";
             text-decoration: underline;
         }
         .text_box{
-		  height: 250px;
-		  font-size: 2rem;
-		  text-align: center;
-		  color: #ffffff;
-		  margin-top: 200px;
-		  
+			height: 250px;
+			font-size: 2rem;
+			text-align: center;
+			font-weight : bold; 
+			color: #ffffff;
+			margin-top: 200px;
 		}
+
 		.blink {
 		  animation: blink 0.5s infinite;
 		  font-size: 2.5rem;
 		}
 		
-		@keyframes blink {
-		  to {
-		    opacity: 0;
+		@keyframes caret {
+		  50% {
+		    opacity:0;
 		  }
 		}
+		
+		
 		body::-webkit-scrollbar {
 		  display: none;
 		}
@@ -112,16 +116,16 @@ String sql = "select * from user";
 		    flex-shrink: 0; 
 		}
 		.wrap .rolling-list ul li:nth-child(1) { 
-			background-color: #F8E1E3;
+			background-color: #b0c2c9;
 		}
 		.wrap .rolling-list ul li:nth-child(2) { 
-			background-color: #FFEAB5; 
+			background-color: #c3d1d6; 
 		}
 		.wrap .rolling-list ul li:nth-child(3) { 
-			background-color: #D3E7DC;
+			background-color: #d7e0e4;
 		}
 		.wrap .rolling-list ul li:nth-child(4) { 
-			background-color: #A6C1E8;
+			background-color: #ebeff1;
 		}
 		.wrap .rolling-list ul li:nth-child(even) {
 			margin-top: 80px;
@@ -164,6 +168,7 @@ String sql = "select * from user";
 			0% { transition: translateX(0); }
 			100% { transform: translateX(-200%); }
 		}
+		
     </style>
 </head>
 <body>
@@ -194,7 +199,7 @@ String sql = "select * from user";
 			<li>
 				<div class="image-wrap"><img src="./img/img_banner1.svg" alt=""></div>
 				<div class="desc">
-					<strong>First Banner</strong>
+					<strong>동네의사</strong>
                     <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit.<br/>
 					Neque cumque ratione provident nulla veniam nihil quaerat, illum officiis hic.<br/> 
 					Laborum in eos possimus, quo ullam nobis nam nemo fuga ipsam?</span>
@@ -203,7 +208,7 @@ String sql = "select * from user";
 			<li>
 				<div class="image-wrap"><img src="./img/img_banner2.svg" alt=""></div>
 				<div class="desc">
-					<strong>Second Banner</strong>
+					<strong>ToDo 리스트</strong>
 					<span>Lorem ipsum dolor sit amet, consectetur adipisicing elit.<br/>
                     Neque cumque ratione provident nulla veniam nihil quaerat, illum officiis hic.<br/>
 					Laborum in eos possimus, quo ullam nobis nam nemo fuga ipsam?</span>
@@ -212,16 +217,7 @@ String sql = "select * from user";
 			<li>
 				<div class="image-wrap"><img src="./img/img_banner3.svg" alt=""></div>
 				<div class="desc">
-					<strong>Third Banner</strong>
-					<span>Lorem ipsum dolor sit amet, consectetur adipisicing elit.<br/>
-					Neque cumque ratione provident nulla veniam nihil quaerat, illum officiis hic.<br/>
-					Laborum in eos possimus, quo ullam nobis nam nemo fuga ipsam?</span>
-				</div>
-			</li>
-			<li>
-				<div class="image-wrap"><img src="./img/img_banner4.svg" alt=""></div>
-				<div class="desc">
-					<strong>Fourth Banner</strong>
+					<strong>여행일정관리</strong>
 					<span>Lorem ipsum dolor sit amet, consectetur adipisicing elit.<br/>
 					Neque cumque ratione provident nulla veniam nihil quaerat, illum officiis hic.<br/>
 					Laborum in eos possimus, quo ullam nobis nam nemo fuga ipsam?</span>
@@ -322,8 +318,10 @@ String sql = "select * from user";
             }, 2000);
         }
     }
-
     setInterval(typing, 200);
+    TypeHangul.type('.text_box',{
+    intervalType: 80
+    });
     
     //무한배너
     // 롤링 배너 복제본 생성
@@ -343,7 +341,7 @@ String sql = "select * from user";
 	clone.classList.add('clone');
     
 </script>
-
+<!--속도제어-->
 
 </body>
 </html>

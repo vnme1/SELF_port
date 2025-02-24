@@ -5,6 +5,7 @@
 
 String U_id = request.getParameter("U_id");
 String U_pw = request.getParameter("U_pw");
+String R_id = request.getParameter("R_id");
 
 Connection conn = null;
 PreparedStatement pstmt = null;
@@ -26,6 +27,18 @@ ResultSet rs = null;
 	    if (rs.next()) {
 	        session.setAttribute("U_id", U_id);
 	        session.setAttribute("U_pw", U_pw);
+	        Cookie L_Cookie = new Cookie("R_id",U_id);
+	        response.addCookie(L_Cookie);
+	        //아이디 기억 체크한 경우
+	        if(R_id != null){
+	        	Cookie R_Cookie = new Cookie("R_Cookie", U_id);
+	        	R_Cookie.setMaxAge(60*60*24*30);
+	        	response.addCookie(R_Cookie);
+	        }else {
+	        	Cookie R_Cookie = new Cookie("R_id","");
+	        	R_Cookie.setMaxAge(0); //쿠키삭제
+	        	response.addCookie(R_Cookie);
+	        }
 	        %>
 	        <script>
 	            alert("로그인 성공");
