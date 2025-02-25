@@ -3,6 +3,6 @@
 <%
 	//세션 무효화
 	session.invalidate();
-	response.sendRedirect("login_test.jsp");
+	response.sendRedirect("../login/login_test.jsp");
 
 %>

@@ -77,158 +77,47 @@ try {
 <html>
 
 <head>
+
+<header>
+        <div class="inner">
+            <ul id="gnb">
+                <li><a href="#">INTRODUCE</a></li>
+                <li><a href="#">MYPAGE</a></li>
+                <li><a href="#">PROJECT</a></li>
+                <li><a href="#">TODOLIST</a></li>
+                <li><a href="#">LOCATION</a></li>
+            </ul>
+            
+            <ul class="util">
+            
+                <li><a href="#">Contact</a></li>
+                <li><a href="#">Help</a></li>
+                <%
+				    if ((String)session.getAttribute("U_id") != null) {          
+				        // 로그인 상태일 때의 출력 
+				        String U_id = (String) session.getAttribute("U_id");
+				        // 로그인 아이디 정보 userid 변수에 저장
+				%>
+                <li><a href="login/logout_test.jsp"><%= U_id %>님 Logout</a></li>
+                <!--또는 session.getAttribute("userName") -->
+                <%
+				    }else {
+                %>
+                <li><a href="login/login_test.jsp">Login</a></li>
+                
+                <% } %>
+                <li><a href="user/register.jsp">Join</a></li>
+            </ul>
+        </div>
+    </header>
     <meta charset="UTF-8">
     <title>자기소개 페이지</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" >
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #47494D;
-            text-align: center;
-        }
-        .container {
-            width: 50%;
-            margin: 50px auto;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        }
-        
-        img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            margin-top: 10px;
-        }
-        h1 {
-            color: #333;
-        }
-        p {
-            color: #666;
-        }
-        table{
-        	margin: 50px auto;
-            width: 500px;
-        	text-align: center;
-        	color: #47494D;
-        	border-collapse: collapse;
-        }
-		th, td {
-		    padding: 10px;
-		    border-bottom: 1px solid #47494D;
-		}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- 📌 외부 CSS 파일 연결 -->
+    <link rel="stylesheet" type="text/css" href="css/css_main.css">
 
-        .contact {
-            margin-top: 20px;
-        }
-        .contact a {
-            text-decoration: none;
-            color: #007bff;
-            font-weight: bold;
-        }
-        .contact a:hover {
-            text-decoration: underline;
-        }
-        .text_box{
-			height: 250px;
-			font-size: 2rem;
-			text-align: center;
-			font-weight : bold; 
-			color: #ffffff;
-			margin-top: 200px;
-		}
-
-		.blink {
-		  animation: blink 0.5s infinite;
-		  font-size: 2.5rem;
-		}
-		
-		@keyframes caret {
-		  50% {
-		    opacity:0;
-		  }
-		}
-		
-		
-		body::-webkit-scrollbar {
-		  display: none;
-		}
-		.wrap { 
-		  display: flex; 
-		  overflow: hidden;
-		}
-		.wrap .rolling-list ul { 
-			display: flex;
-		}
-		.wrap .rolling-list ul li { 
-			width: 589px; 
-			height: 276px; 
-		    box-sizing: border-box; 
-		    border-radius: 20px; 
-		    margin: 0 16px; 
-		    padding: 46px 31px; 
-		    display: flex; 
-		    align-items: center; 
-		    flex-shrink: 0; 
-		}
-		.wrap .rolling-list ul li:nth-child(1) { 
-			background-color: #b0c2c9;
-		}
-		.wrap .rolling-list ul li:nth-child(2) { 
-			background-color: #c3d1d6; 
-		}
-		.wrap .rolling-list ul li:nth-child(3) { 
-			background-color: #d7e0e4;
-		}
-		.wrap .rolling-list ul li:nth-child(4) { 
-			background-color: #ebeff1;
-		}
-		.wrap .rolling-list ul li:nth-child(even) {
-			margin-top: 80px;
-		}
-		.wrap .rolling-list ul li .image-wrap { 
-			padding-right: 32px; 
-		    width: 156px; 
-		    flex-shrink: 0; 
-		}
-		.wrap .rolling-list ul li .image-wrap > img { 
-			width: 100%;
-		}
-		.wrap .rolling-list ul li .desc { 
-			font-family: 'BMJUA';
-		}
-		.wrap .rolling-list ul li .desc strong { 
-			display: block; 
-		    font-size: 24px; 
-		    margin-bottom: 24px;
-		}
-		.wrap .rolling-list ul li .desc span { 
-			font-size: 18px;
-		    line-height: 1.2;
-		}
-		.rolling-list.original {
-			animation: rollingleft1 33s linear infinite;
-		}
-		.rolling-list.clone {
-			animation: rollingleft2 33s linear infinite;
-		}
-		
-		@keyframes rollingleft1 {
-			0% { transform: translateX(0); }
-			50% { transform: translateX(-100%); }
-			50.01% { transform: translateX(100%); }
-			100% { transform: translateX(0); }
-		}
-		
-		@keyframes rollingleft2 {
-			0% { transition: translateX(0); }
-			100% { transform: translateX(-200%); }
-		}
-		
-    </style>
+    
 </head>
 <body>
 <div class="text_box">
@@ -238,7 +127,8 @@ try {
 <div class="container">
     <img src="img/mainpge.png" alt="프로필 사진">
     <h2>마이페이지</h2>
-        <p>저는 <%= M_job %>이며, 현재 JSP와 Java를 공부하고 있습니다.</p>
+        <p>저는 <%= M_job %>이며,</p>
+        <p> 현재 JSP와 Java를 공부하고 있습니다.</p>
         <p>좋아하는 기술: <%= M_skill %></p>
         <p>취미: <%= M_hobby %></p>
 
@@ -248,45 +138,47 @@ try {
             <p>🔗 <a href="<%= M_github %>" target="_blank">GitHub</a></p>
         </div>
 
-        <a href="Mypage.jsp">정보 입력하기</a>
+        <a href="user/Mypage.jsp">정보 입력하기</a>
 </div>
 
 
 <div class="container">
-<h2>내가 진행한 프로젝트</h2>
-<div class="wrap"> <!-- 배너표시영역 -->
-	<div class="rolling-list"> <!-- 원본배너 -->
-		<ul>
-			<li>
-				<div class="image-wrap"><img src="./img/img_banner1.svg" alt=""></div>
-				<div class="desc">
-					<strong>동네의사</strong>
-                    <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit.<br/>
-					Neque cumque ratione provident nulla veniam nihil quaerat, illum officiis hic.<br/> 
-					Laborum in eos possimus, quo ullam nobis nam nemo fuga ipsam?</span>
-                </div>
-			</li>
-			<li>
-				<div class="image-wrap"><img src="./img/img_banner2.svg" alt=""></div>
-				<div class="desc">
-					<strong>ToDo 리스트</strong>
-					<span>Lorem ipsum dolor sit amet, consectetur adipisicing elit.<br/>
-                    Neque cumque ratione provident nulla veniam nihil quaerat, illum officiis hic.<br/>
-					Laborum in eos possimus, quo ullam nobis nam nemo fuga ipsam?</span>
-				</div>
-			</li>
-			<li>
-				<div class="image-wrap"><img src="./img/img_banner3.svg" alt=""></div>
-				<div class="desc">
-					<strong>여행일정관리</strong>
-					<span>Lorem ipsum dolor sit amet, consectetur adipisicing elit.<br/>
-					Neque cumque ratione provident nulla veniam nihil quaerat, illum officiis hic.<br/>
-					Laborum in eos possimus, quo ullam nobis nam nemo fuga ipsam?</span>
-				</div>
-			</li>
-		</ul>
-	</div>
+    <h2>내가 진행한 프로젝트</h2>
+    <div class="wrap"> <!-- 배너 표시 영역 -->
+        <div class="rolling-list"> <!-- 원본 배너 -->
+            <ul>
+                <li>
+                    <div class="image-wrap"><img src="./img/img_banner1.svg" alt=""></div>
+                    <div class="desc">
+                        <strong>동네의사</strong>
+                        <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit.<br/>
+                        Neque cumque ratione provident nulla veniam nihil quaerat, illum officiis hic.<br/>
+                        Laborum in eos possimus, quo ullam nobis nam nemo fuga ipsam?</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="image-wrap"><img src="./img/img_banner2.svg" alt=""></div>
+                    <div class="desc">
+                        <strong>ToDo 리스트</strong>
+                        <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit.<br/>
+                        Neque cumque ratione provident nulla veniam nihil quaerat, illum officiis hic.<br/>
+                        Laborum in eos possimus, quo ullam nobis nam nemo fuga ipsam?</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="image-wrap"><img src="./img/img_banner3.svg" alt=""></div>
+                    <div class="desc">
+                        <strong>여행일정관리</strong>
+                        <span>Lorem ipsum dolor sit amet, consectetur adipisicing elit.<br/>
+                        Neque cumque ratione provident nulla veniam nihil quaerat, illum officiis hic.<br/>
+                        Laborum in eos possimus, quo ullam nobis nam nemo fuga ipsam?</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>
+
 
 </div>
 
@@ -360,6 +252,8 @@ try {
     let content;
     if (userid === "root") {
         content = "관리자님 안녕하세요. \n끊임없이 성장하고 도전하는 \n[개발자]입니다.";
+    } else if(userid == null){
+    	content = "안녕하세요. \n끊임없이 성장하고 도전하는 \n[개발자]입니다.";
     } else {
         content = userid + "님 안녕하세요. \n끊임없이 성장하고 도전하는 \n[개발자]입니다.";
     }
@@ -383,23 +277,32 @@ try {
     TypeHangul.type('.text_box',{
     intervalType: 80
     });
-    
-    //무한배너
-    // 롤링 배너 복제본 생성
-	let roller = document.querySelector('.rolling-list');
-	roller.id = 'roller1'; // 아이디 부여
-	
-	let clone = roller.cloneNode(true)
-	// cloneNode : 노드 복제. 기본값은 false. 자식 노드까지 복제를 원하면 true 사용
-	clone.id = 'roller2';
-	document.querySelector('.wrap').appendChild(clone); // wrap 하위 자식으로 부착
-	
-	document.querySelector('#roller1').style.left = '0px';
-	document.querySelector('#roller2').style.left = document.querySelector('.rolling-list ul').offsetWidth + 'px';
-	// offsetWidth : 요소의 크기 확인(margin을 제외한 padding값, border값까지 계산한 값)
-	
-	roller.classList.add('original');
-	clone.classList.add('clone');
+</script>   
+<script> 
+    document.addEventListener("DOMContentLoaded", function () {
+        console.log("페이지 로드 완료!"); // 디버깅 메시지
+        
+        let roller = document.querySelector('.rolling-list');
+        if (!roller) {
+            console.error("⚠️ rolling-list 요소를 찾을 수 없습니다.");
+            return;
+        }
+        
+        roller.id = 'roller1'; // ID 부여
+
+        let clone = roller.cloneNode(true); // 요소 복제
+        clone.id = 'roller2';
+        document.querySelector('.wrap').appendChild(clone);
+
+        document.querySelector('#roller1').style.left = '0px';
+        document.querySelector('#roller2').style.left = document.querySelector('.rolling-list ul').offsetWidth + 'px';
+
+        // 애니메이션 클래스 추가
+        roller.classList.add('original');
+        clone.classList.add('clone');
+
+        console.log("롤링 배너 적용 성공");
+    });
     
 </script>
 <!--속도제어-->

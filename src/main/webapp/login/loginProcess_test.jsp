@@ -45,7 +45,7 @@ ResultSet rs = null;
 	            history.back();
 	        </script>
 	<%
-	        response.sendRedirect("main_page.jsp");
+	        response.sendRedirect("../main_page.jsp");
 	    } else {
 	        out.println("로그인 실패");
 	%>

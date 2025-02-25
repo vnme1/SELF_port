@@ -30,7 +30,7 @@
 %>
         <script>
             alert("아이디가 존재하지 않습니다. 다시 로그인 해주세요.");
-            window.location.href = "login_test.jsp";
+            window.location.href = "../login/login_test.jsp";
         </script>
 <%
     } else {
@@ -88,7 +88,7 @@
 %>
             <script>
                 alert("정보가 성공적으로 저장되었습니다.");
-                window.location.href = "main_page.jsp";
+                window.location.href = "../main_page.jsp";
             </script>
 <%
         } catch (SQLException e) {
