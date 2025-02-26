@@ -19,12 +19,9 @@
 
     // 폼 데이터 가져오기
     String U_id = request.getParameter("U_id");
-    String M_job = request.getParameter("M_job");
-    String M_skill = request.getParameter("M_skill");
-    String M_hobby = request.getParameter("M_hobby");
-    String M_number = request.getParameter("M_number"); 
-    String M_github = request.getParameter("M_github");
-    String M_now = request.getParameter("M_now");
+    String S_time = request.getParameter("S_time");
+    String S_week = request.getParameter("S_week");
+    String S_todo = request.getParameter("S_todo");
 
     // NULL 및 빈 값 체크
     if (U_id == null || U_id.trim().isEmpty()) {
@@ -36,12 +33,9 @@
 <%
     } else {
         // NULL 값 방지 (NULL 값이 들어오면 빈 문자열로 저장)
-        M_job = (M_job == null) ? "" : M_job;
-        M_skill = (M_skill == null) ? "" : M_skill;
-        M_hobby = (M_hobby == null) ? "" : M_hobby;
-        M_number = (M_number == null) ? "" : M_number;
-        M_github = (M_github == null) ? "" : M_github;
-        M_now = (M_now == null) ? "" : M_now;
+        S_time = (S_time == null) ? "" : S_time;
+        S_week = (S_week == null) ? "" : S_week;
+        S_todo = (S_todo == null) ? "" : S_todo;
 
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -66,27 +60,21 @@
             // 이미 존재하는 경우 UPDATE, 존재하지 않으면 INSERT
             if (count > 0) {
                 // UPDATE 문 실행
-                String updateSql = "UPDATE Mypage SET M_job = ?, M_skill = ?, M_hobby = ?, M_number = ?, M_github = ?,M_now = ? WHERE U_id = ?";
+                String updateSql = "UPDATE Mypage SET S_time = ?, S_week = ?, S_todo = ? WHERE U_id = ?";
                 pstmt = conn.prepareStatement(updateSql);
-                pstmt.setString(1, M_job);
-                pstmt.setString(2, M_skill);
-                pstmt.setString(3, M_hobby);
-                pstmt.setString(4, M_number);
-                pstmt.setString(5, M_github);
-                pstmt.setString(6, M_now);
-                pstmt.setString(7, U_id);
+                pstmt.setString(1, S_time);
+                pstmt.setString(2, S_week);
+                pstmt.setString(3, S_todo);
+                pstmt.setString(4, U_id);
                 pstmt.executeUpdate();
             } else {
                 // INSERT 문 실행
-                String insertSql = "INSERT INTO Mypage (U_id, M_job, M_skill, M_hobby, M_number, M_github, M_now) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                String insertSql = "INSERT INTO Mypage (U_id, S_time, S_week, S_todo) VALUES (?, ?, ?, ?)";
                 pstmt = conn.prepareStatement(insertSql);
                 pstmt.setString(1, U_id);
-                pstmt.setString(2, M_job);
-                pstmt.setString(3, M_skill);
-                pstmt.setString(4, M_hobby);
-                pstmt.setString(5, M_number);
-                pstmt.setString(6, M_github);
-                pstmt.setString(7, M_now);
+                pstmt.setString(2, S_time);
+                pstmt.setString(3, S_week);
+                pstmt.setString(4, S_todo);
                 pstmt.executeUpdate();
             }
 %>

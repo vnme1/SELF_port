@@ -15,7 +15,7 @@ ResultSet rs = null;
 
 		try {
 		Class.forName("com.mysql.cj.jdbc.Driver");
-		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/spring5fs","root","1234");
+		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/SELF_Port","root","1234");
 		
 		String sql = "SELECT * FROM user WHERE U_id = ? AND U_pw = ?";
 		pstmt = conn.prepareStatement(sql);

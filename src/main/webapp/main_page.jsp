@@ -3,14 +3,14 @@
 
 <%
 Class.forName("com.mysql.cj.jdbc.Driver");
-String URL = "jdbc:mysql://localhost:3306/spring5fs";
+String URL = "jdbc:mysql://localhost:3306/SELF_Port";
 String USER = "root";
 String PASSWORD = "1234";
 
 // 세션에서 로그인한 사용자 ID 가져오기
 String userid = (String) session.getAttribute("U_id");
 if (userid == null) {
-    response.sendRedirect("login_test.jsp");
+    response.sendRedirect("login/login_test.jsp");
     return;
 }
 
@@ -19,6 +19,7 @@ System.out.println("현재 로그인한 사용자 ID: " + userid); // 디버깅�
 // 기본값 설정
 String U_email = "이메일 정보 없음";
 String M_job = "직업 정보 없음";
+String M_now = "현재 상황 없음";
 String M_skill = "기술 정보 없음";
 String M_hobby = "취미 정보 없음";
 String M_number = "전화번호 없음";
@@ -31,7 +32,7 @@ ResultSet rs = null;
 try {
     conn = DriverManager.getConnection(URL, USER, PASSWORD);
     
-    // 1️⃣ user 테이블에서 이메일 가져오기
+    // 1️ user 테이블에서 이메일 가져오기
     String userSql = "SELECT U_email FROM user WHERE U_id = ?";
     pstmt = conn.prepareStatement(userSql);
     pstmt.setString(1, userid);
@@ -45,8 +46,8 @@ try {
     rs.close();
     pstmt.close();
 
-    // 2️⃣ Mypage 테이블에서 정보 가져오기
-    String mypageSql = "SELECT M_job, M_skill, M_hobby, M_number, M_github FROM Mypage WHERE U_id = ?";
+    // 2️ Mypage 테이블에서 정보 가져오기
+    String mypageSql = "SELECT M_job, M_skill, M_hobby, M_number, M_github, M_now FROM Mypage WHERE U_id = ?";
     pstmt = conn.prepareStatement(mypageSql);
     pstmt.setString(1, userid);
     rs = pstmt.executeQuery();
@@ -57,9 +58,15 @@ try {
         M_hobby = rs.getString("M_hobby") != null ? rs.getString("M_hobby") : "취미 정보 없음";
         M_number = rs.getString("M_number") != null ? rs.getString("M_number") : "전화번호 없음";
         M_github = rs.getString("M_github") != null ? rs.getString("M_github") : "#";
+        M_now = rs.getString("M_now") != null ? rs.getString("M_now") : "현재 상황 없음";
     } else {
         System.out.println("Mypage 테이블에서 ID를 찾을 수 없음: " + userid);
     }
+    
+    rs.close();
+    pstmt.close();
+    
+ 	// 3 Study 테이블에서 정보 가져오기
 
 } catch (Exception e) {
     e.printStackTrace();
@@ -128,7 +135,7 @@ try {
     <img src="img/mainpge.png" alt="프로필 사진">
     <h2>마이페이지</h2>
         <p>저는 <%= M_job %>이며,</p>
-        <p> 현재 JSP와 Java를 공부하고 있습니다.</p>
+        <p> <%= M_now %>.</p>
         <p>좋아하는 기술: <%= M_skill %></p>
         <p>취미: <%= M_hobby %></p>
 

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
+<%@ page import="util.DatabaseUtil"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,13 +9,14 @@
 </head>
 <body>
 <%
+	request.setCharacterEncoding("UTF-8");
     // JDBC 드라이버 로드
-    Class.forName("com.mysql.cj.jdbc.Driver");
+    //Class.forName("com.mysql.cj.jdbc.Driver");
 
     // DB 연결 정보
-    String URL = "jdbc:mysql://localhost:3306/spring5fs";
-    String USER = "root"; // 본인의 DB 사용자명
-    String PASSWORD = "1234"; // 본인의 DB 비밀번호
+    //String URL = "jdbc:mysql://localhost:3306/SELF_Port";
+    //String USER = "root"; // 본인의 DB 사용자명
+    //String PASSWORD = "1234"; // 본인의 DB 비밀번호
 
     // 폼 데이터 가져오기
     String U_id = request.getParameter("U_id");
@@ -25,7 +27,8 @@
     boolean isDuplicate = false; // 아이디 중복 여부 체크 변수
 
     // 아이디 중복 확인 및 "root" 계정 체크
-    try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+    try (//Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+    		Connection conn = DatabaseUtil.getConnection();
          PreparedStatement checkStmt = conn.prepareStatement("SELECT COUNT(*) FROM user WHERE U_id = ?")) {
 
         checkStmt.setString(1, U_id);
@@ -71,7 +74,8 @@
         // 회원가입 진행
         String sql = "INSERT INTO user (U_id, U_email, U_pw, U_pwck) VALUES (?, ?, ?, ?)";
 
-        try (Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+        try (//Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+        		Connection conn = DatabaseUtil.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, U_id);

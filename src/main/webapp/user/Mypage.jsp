@@ -4,7 +4,7 @@
 <%
 request.setCharacterEncoding("UTF-8");
 Class.forName("com.mysql.cj.jdbc.Driver");
-String URL = "jdbc:mysql://localhost:3306/spring5fs";
+String URL = "jdbc:mysql://localhost:3306/SELF_Port";
 String USER = "root";
 String PASSWORD = "1234";
 
@@ -22,6 +22,7 @@ String M_skill = "";
 String M_hobby = "";
 String M_number = "";
 String M_github = "";
+String M_now = "";
 
 Connection conn = null;
 PreparedStatement pstmt = null;
@@ -50,6 +51,7 @@ try {
         M_hobby = rs.getString("M_hobby");
         M_number = rs.getString("M_number");
         M_github = rs.getString("M_github");
+        M_now = rs.getString("M_now");
     }
 
 } catch (Exception e) {
@@ -87,6 +89,10 @@ try {
             <div class="form-group">
                 <label>내 직업</label>
                 <input type="text" name="M_job" value="<%= M_job %>" required />
+            </div>
+            <div class="form-group">
+                <label>현재 하는것</label>
+                <input type="text" name="M_now" value="<%= M_now %>" required />
             </div>
             <div class="form-group">
                 <label>좋아하는 기술</label>

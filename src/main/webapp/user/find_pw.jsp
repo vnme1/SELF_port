@@ -3,7 +3,7 @@
 
 <%
 Class.forName("com.mysql.cj.jdbc.Driver");
-String URL = "jdbc:mysql://localhost:3306/spring5fs";
+String URL = "jdbc:mysql://localhost:3306/SELF_Port";
 String sql = "select * from user";
 %>
 <!DOCTYPE html>
