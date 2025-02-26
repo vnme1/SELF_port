@@ -85,7 +85,7 @@
 %>
                 <script>
                     alert("회원가입이 완료되었습니다.");
-                    window.location.href = "login_test.jsp";
+                    window.location.href = "../login/login_test.jsp";
                 </script>
 <%
             } else {
